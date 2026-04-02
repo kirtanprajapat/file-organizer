@@ -1,0 +1,39 @@
+#!/bin/bash
+
+shopt -s nullglob
+
+echo "Organizing files..."
+
+[ -d text_files ] || mkdir text_files
+[ -d images ] || mkdir images
+
+found=false
+txt_count=0
+img_count=0
+ 
+for file in *.txt
+do 
+  sleep 0.5
+  echo "Moving $file"
+  mv "$file" text_files/
+  found=true
+  ((txt_count++))
+done
+
+for file in *.jpg *.png
+do  
+  sleep 0.5
+  echo "Moving $file"
+  mv "$file" images/
+  found=true
+  ((img_count++))
+done
+
+sleep 1
+if [ "$found" = false ]
+then
+  echo "No files found to organize."
+else
+  echo "Moved $txt_count text files and $img_count image files"
+fi
+
